@@ -1,0 +1,18 @@
+# Import this file into Coolify as a Docker Compose Empty service.
+# Then set Domains for service "bzwebs" to:
+#   https://bzwebs.javierbenzo.com:4001
+# Coolify's proxy routes HTTPS to the container's internal port 4001.
+# The host bind mount keeps the existing project and webs/ content in place.
+services:
+  bzwebs:
+    image: node:26-alpine
+    working_dir: /app
+    command: ["node", "server.js"]
+    environment:
+      NODE_ENV: production
+      PORT: "4001"
+    volumes:
+      - /home/ubuntu/bzWebs:/app:ro
+    expose:
+      - "4001"
+    restart: unless-stopped
